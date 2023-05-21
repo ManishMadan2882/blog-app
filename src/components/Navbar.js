@@ -2,9 +2,9 @@ import React,{useState} from 'react'
 import { Button } from '@mui/material';
 import Draft from './Draft';
 import Modal from 'react-modal'
+import CancelIcon from '@mui/icons-material/Cancel';
 Modal.setAppElement('#root'); // set the app root element to handle screen readers
 export const Navbar = (props) => {
-    console.log(props.username)
     const [open,isOpen] = useState(false)
     const openModal = ()=>{
         isOpen(!open)
@@ -13,7 +13,7 @@ export const Navbar = (props) => {
         <div>
         <Modal isOpen={open}>
         <div >
-        <button onClick={openModal} className='hover:bg-rose-700 font-extrabold bg-red-950 text-white py-1 px-4 rounded-full  '>Close X</button>
+        <button onClick={openModal} className='float-right' >{<CancelIcon/>}</button>
         </div>
            <Draft/>
         </Modal>
@@ -30,13 +30,13 @@ export const Navbar = (props) => {
           <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
                  
-              <a href="#responsive-header" class="block mt-4 text-lg hover:underline lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+              <a href="/" class="block mt-4 text-lg hover:underline lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
                 Read Blogs
               </a>
             </div>
             
             <div>
-            <Button class="mr-5 inline-block text-sm px-4 py-2 leading-none border rounded text-white border-gray-200 hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0" onClick={openModal}>Create Post +</Button>
+            <Button class="mr-5 inline-block text-sm px-4 py-2 leading-none border rounded text-white border-gray-200 hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0" onClick={props.username==='*'? ()=> window.location.replace('/login'): openModal}>Create Post +</Button>
               {
                
                 (props.username !== '*') ?
@@ -45,9 +45,11 @@ export const Navbar = (props) => {
                  <div className='inline'>
                  <h1 className='text-white inline px-5'>{props.username}</h1>
                  <Button className='' variant='contained' onClick={
-                   async ()=>[
-                    await fetch('/logout')
-                   ]
+                   async ()=>{
+                    await fetch('/logout');
+                    window.location.reload(false) 
+                 }
+                   
                  }>LOGOUT</Button>
                  </div>
                 )

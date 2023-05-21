@@ -3,6 +3,7 @@ import { TextField } from '@mui/material'
 import {Button} from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 
+
 const Draft = () => {
    const [title,setTitle] = useState('')
    const [imgUrl,setImgUrl] = useState('')
@@ -13,6 +14,21 @@ const Draft = () => {
         imgUrl:imgUrl,
         content:content
     }
+    
+        fetch('/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          })
+            .then(response => response.json())
+            .then(data =>{ 
+                console.log(data)
+                window.location.replace('/');
+            })
+            .catch(error => console.error(error));
+    
     console.log(payload);
    }
   return (
