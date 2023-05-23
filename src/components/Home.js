@@ -9,7 +9,7 @@ const Home = (props) => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('https://blog-api-39m6.onrender.com/blogs');
+            const response = await fetch('/blogs');
             const jsonData = await response.json();
             setBlogs(jsonData);
           } catch (error) {

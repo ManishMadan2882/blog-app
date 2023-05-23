@@ -9,7 +9,7 @@ const Register = () => {
         let payload = {
             username:username,password:password
         }
-        fetch('https://blog-api-39m6.onrender.com/register', {
+        fetch('/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

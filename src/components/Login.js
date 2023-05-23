@@ -10,7 +10,7 @@ const Login = () => {
         let payload = {
             username:username,password:password
         }
-        fetch('https://blog-api-39m6.onrender.com/login', {
+        fetch('/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
