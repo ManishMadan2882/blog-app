@@ -8,7 +8,7 @@ import {Routes, Route,  BrowserRouter as Router} from 'react-router-dom'
 function App() {
    const [user,setUser] = useState('*')
    useEffect(()=>{
-    fetch('/ping')
+    fetch('https://blog-api-39m6.onrender.com/ping')
     .then((res)=>res.json())
     .then((data)=>{
         if(data.isAuth)
@@ -18,7 +18,7 @@ function App() {
         }
         
     })
-   })
+   },[])
 
   return (
       <div>
