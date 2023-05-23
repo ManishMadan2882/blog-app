@@ -1,6 +1,5 @@
 {
   "name": "blogs",
-  "proxy": "http://localhost:5400",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
