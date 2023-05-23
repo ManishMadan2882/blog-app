@@ -29,7 +29,7 @@ const Login = () => {
     <div className='flex justify-center  drop-shadow-xl mt-[10%]'>
        
        <div className='border p-5 '>
-       <h1 className='text-2xl text-center'>One Step to go </h1>
+       <h1 className='text-2xl text-center'>🔑</h1>
        <div className='m-6'>
        <TextField id="outlined-basic" value={username} onChange={(e)=>setUsername(e.target.value)} label="Username" variant="outlined"  />
        </div>
@@ -42,7 +42,7 @@ const Login = () => {
          </span>
        </div>
        <div className='justify-center flex'>
-       <Button onClick={postToAPI} variant="contained" className='w-full'>Log in</Button>
+       <Button onClick={postToAPI} variant="contained" className='w-full'>Log in ❤️</Button>
        </div>
        </div>
 

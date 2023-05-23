@@ -24,10 +24,10 @@ const Register = () => {
             .catch(error => console.error(error));
     } 
   return (
-    <div className='flex justify-center  m-3'>
+    <div className='flex justify-center rounded drop-shadow-xl mt-[10%]'>
      
        <div className='border p-5'>
-     
+       <h1 className='text-center text-2xl'>One step to go 🔥</h1>
        <div className='m-6'>
        <TextField id="outlined-basic" value={username} onChange={(e)=>setUsername(e.target.value)}  label="Username" variant="outlined"  />
        </div>
