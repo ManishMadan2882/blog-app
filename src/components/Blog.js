@@ -9,7 +9,7 @@ const Blog = (props) => {
   const callAPI = ()=>
   {
     
-    fetch(`/blogs/${id}`)
+    fetch(`https://blog-api-39m6.onrender.com/blogs/${id}`)
     .then(res => res.json())
     .then(data => {setBlog(data)
     console.log(data);})
