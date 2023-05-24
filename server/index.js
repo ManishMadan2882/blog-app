@@ -10,7 +10,7 @@ const mongoStore = require('connect-mongo');
 const {user} = require('./database/schema')
 const {blogs} = require('./database/schema')
 app.use(cors({
-  origin: 'https://blog-app-one-jet.vercel.app'
+  origin: '*'
 }));
 app.use(express.json());
 
