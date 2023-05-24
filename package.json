@@ -1,7 +1,6 @@
 {
   "name": "blogs",
   "version": "0.1.0",
-  "proxy": "https://",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.0",
