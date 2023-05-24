@@ -18,8 +18,8 @@ app.use(session({
   resave : false,
   saveUninitialized:true,
   cookie:{maxAge : 48*3600*1000000},
-  secret: String("fadfahafgrgsrjtaearjsharhahh"),
-  mongoUrl:process.env.LOCAL
+  secret: String(process.env.SECRET),
+  mongoUrl:process.env.CLOUD
 }));
 
 app.post('/submit',async (req,res)=>{
