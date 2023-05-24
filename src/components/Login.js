@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import api from '../api'
 import { TextField } from '@mui/material'
 import {Button} from '@mui/material'
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
         let payload = {
             username:username,password:password
         }
-        fetch('/login', {
+        fetch(api+'/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

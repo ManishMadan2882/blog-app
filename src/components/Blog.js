@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react'
 import { TextareaAutosize } from '@mui/base';
 import { Navbar } from './Navbar'
 import { useParams } from 'react-router-dom';
+import api from '../api.js';
 const Blog = (props) => {
   const {id} = useParams();
   const [blog,setBlog] = useState([])
@@ -9,7 +10,7 @@ const Blog = (props) => {
   const callAPI = ()=>
   {
     
-    fetch(`/blogs/${id}`)
+    fetch(`${api}/blogs/${id}`)
     .then(res => res.json())
     .then(data => {setBlog(data)
     console.log(data);})

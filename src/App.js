@@ -1,3 +1,4 @@
+import api from './api';
 import { Navbar } from './components/Navbar';
 import { useEffect,useState } from 'react';
 import Blog from './components/Blog';
@@ -8,7 +9,7 @@ import {Routes, Route,  BrowserRouter as Router} from 'react-router-dom'
 function App() {
    const [user,setUser] = useState('*')
    useEffect(()=>{
-    fetch('/ping')
+    fetch(api+'/ping')
     .then((res)=>res.json())
     .then((data)=>{
         if(data.isAuth)

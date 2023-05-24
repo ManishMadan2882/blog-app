@@ -3,13 +3,14 @@ import Card from './Card'
 import { Link } from 'react-router-dom'
 import { useEffect,useState } from 'react'
 import { Navbar } from './Navbar'
+import api from '../api.js'
 const Home = (props) => {
     const [blogs,setBlogs] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('/blogs');
+            const response = await fetch(api+'/blogs');
             const jsonData = await response.json();
             setBlogs(jsonData);
           } catch (error) {

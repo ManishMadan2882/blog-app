@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import Draft from './Draft';
 import Modal from 'react-modal'
 import CancelIcon from '@mui/icons-material/Cancel';
+import api from '../api';
 Modal.setAppElement('#root'); // set the app root element to handle screen readers
 export const Navbar = (props) => {
     const [open,isOpen] = useState(false)
@@ -53,7 +54,7 @@ export const Navbar = (props) => {
                  <h1 className='text-white inline px-5'>{props.username}</h1>
                  <Button className='' variant='contained' onClick={
                    async ()=>{
-                    await fetch('/logout');
+                    await fetch(api+'/logout');
                     window.location.reload(false) 
                  }
                    

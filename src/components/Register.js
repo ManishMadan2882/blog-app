@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { TextField } from '@mui/material'
 import {Button} from '@mui/material'
+import api from '../api.js'
 const Register = () => {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
@@ -9,7 +10,7 @@ const Register = () => {
         let payload = {
             username:username,password:password
         }
-        fetch('/register', {
+        fetch(api+'/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

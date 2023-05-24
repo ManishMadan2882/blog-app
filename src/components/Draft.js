@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { TextField } from '@mui/material'
 import {Button} from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize';
-
+import api from '../api.js';
 
 const Draft = () => {
    const [title,setTitle] = useState('')
@@ -15,7 +15,7 @@ const Draft = () => {
         content:content
     }
     
-        fetch('/submit', {
+        fetch(api+'/submit', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
