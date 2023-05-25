@@ -1,5 +1,7 @@
+require('dotenv').config()
 const express = require('express')
 const port = 5400
+const path = require('path')
 const app  =  express()
 const bcrypt = require('bcrypt')
 const cors = require('./cors.js');
@@ -9,16 +11,20 @@ const mongoStore = require('connect-mongo');
 
 const {user} = require('./database/schema')
 const {blogs} = require('./database/schema')
+const MongoStore = require('connect-mongo')
 app.use(cors);
 app.use(express.json());
-
 app.use(session({
   resave : false,
-  saveUninitialized:true,
-  cookie:{maxAge : 48*3600*1000000},
-  secret: String("fadfahafgrgsrjtaearjsharhahh"),
-  mongoUrl:process.env.LOCAL
+  saveUninitialized:false,
+  cookie:{maxAge : 48*3600*1000},
+  secret: String(process.env.SECRET),
+  store:MongoStore.create({
+  mongoUrl:process.env.CLOUD
+  })
 }));
+
+
 
 app.post('/submit',async (req,res)=>{
     const newbie  = new blogs( {
@@ -46,6 +52,7 @@ app.get('/blogs/:id',async(req,res)=>{
 app.post('/login',async (req,res) => {
     const {username ,  password} = req.body;
     const userAuth = await user.findOne({username : username});
+    res.header( "Access-Control-Allow-Origin","*" );
     if(userAuth){
       let isValid = await bcrypt.compare(password,userAuth.password);
       
@@ -71,9 +78,10 @@ app.post('/register',async (req,res)=>{
          password : password
         });
         await newOne.save();
+        res.header( "Access-Control-Allow-Origin","*" );
         req.session.username = username;//create session on registeration
         res.status(201).json({message : 'user created',isCreated:true});
-       
+        
       }
       catch(error){
         console.log(error)
@@ -82,7 +90,10 @@ app.post('/register',async (req,res)=>{
     }
 )
 app.get('/ping',(req,res)=>{
-    console.log(req.session.username);
+    res.header( "Access-Control-Allow-Origin","*" );
+    
+    console.log(req.session.username+ " ping session "+req.sessionID)
+ 
     if(req.session.username)
     res.json({
         isAuth:true,
@@ -95,6 +106,7 @@ app.get('/ping',(req,res)=>{
 })
 app.get('/logout',(req,res)=>{
    req.session.destroy()
+  res.header( "Access-Control-Allow-Origin","*" );
    res.json({msg:"session terminated"})
 })
 app.listen(port,()=>{
