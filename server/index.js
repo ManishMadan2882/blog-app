@@ -2,16 +2,14 @@ const express = require('express')
 const port = 5400
 const app  =  express()
 const bcrypt = require('bcrypt')
-const cors = require('cors');
+const cors = require('./cors.js');
 
 const session = require('express-session')
 const mongoStore = require('connect-mongo');
 
 const {user} = require('./database/schema')
 const {blogs} = require('./database/schema')
-app.use(cors({
-  origin: '*'
-}));
+app.use(cors);
 app.use(express.json());
 
 app.use(session({
