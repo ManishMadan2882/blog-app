@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import api from '../api'
+import { PasswordOutlined } from '@mui/icons-material'
+
 import { TextField } from '@mui/material'
 import {Button} from '@mui/material'
+console.log(api);
 const Login = () => {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-
+    const [msg,setMsg] = useState('');
     function postToAPI(){
         let payload = {
             username:username,password:password
@@ -19,8 +22,10 @@ const Login = () => {
           })
             .then(response => response.json())
             .then(data =>{ 
-                console.log(data)
-                window.location.replace('/');
+              console.log(data);
+                if(data.message === 'access given')
+                   window.location.replace('/');
+                   else setMsg(data.message)
             })
             .catch(error => console.error(error));
     } 
@@ -44,8 +49,9 @@ const Login = () => {
        <div className='justify-center flex'>
        <Button onClick={postToAPI} variant="contained" className='w-full'>Log in ❤️</Button>
        </div>
+       <h1 className='text-center p-2'>{msg}</h1>
        </div>
-
+         
     </div>
   )
 }

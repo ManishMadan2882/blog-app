@@ -12,13 +12,15 @@ function App() {
     fetch(api+'/ping')
     .then((res)=>res.json())
     .then((data)=>{
+        console.log(data);
         if(data.isAuth)
         {
-          console.log(data.userData.username);
           setUser(data.userData.username)
+         
         }
         
     })
+    .catch((err)=> console.log('Err  '+err))
    })
 
   return (

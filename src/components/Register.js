@@ -5,7 +5,7 @@ import api from '../api.js'
 const Register = () => {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-
+    const [msg,setMsg] = useState('');
     function postToAPI(){
         let payload = {
             username:username,password:password
@@ -19,8 +19,10 @@ const Register = () => {
           })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                if(data.isCreated)
                 window.location.replace('/');
+                else
+                setMsg(data.message)
             })
             .catch(error => console.error(error));
     } 
@@ -38,6 +40,7 @@ const Register = () => {
        <div className='justify-center flex'>
        <Button variant="contained" onClick={postToAPI}>Sign Up</Button>
        </div>
+       <h1 className='text-center p-2'>{msg}</h1>
        </div>
 
     </div>

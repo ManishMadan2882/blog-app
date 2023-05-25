@@ -11,7 +11,7 @@ export const Navbar = (props) => {
     const toggleMenu = () =>{
      menu === 'hidden'
      ?
-     setMenu('flex')
+      setMenu('flex')
      :setMenu('hidden')
     }
     const openModal = ()=>{
