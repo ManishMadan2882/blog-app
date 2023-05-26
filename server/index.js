@@ -24,10 +24,6 @@ app.use(session({
   })
 }));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname,"..","build","index.html"));
-});
-
 app.post('/api/submit',async (req,res)=>{
     const newbie  = new blogs( {
         title:req.body.title,
@@ -106,6 +102,9 @@ app.get('/api/logout',(req,res)=>{
    req.session.destroy()
    res.json({msg:"session terminated"})
 })
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname,"..","build","index.html"));
+});
 app.listen(port,()=>{
     console.log("Server up and running " + port);
 })
