@@ -23,7 +23,6 @@ const Home = (props) => {
     
   return (
     <div>
-        <Navbar username = {props.user}/>
         <h1 className='m-6 text-2xl font-extralight'>Latest Blogs</h1>
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 '>
         {blogs.map((Element,key)=>{

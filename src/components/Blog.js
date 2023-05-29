@@ -1,28 +1,38 @@
 import React, { useEffect,useState } from 'react'
 import { Button, TextareaAutosize } from '@mui/base';
-import { Navbar } from './Navbar'
 import Comment from './Comment';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { Cancel } from '@mui/icons-material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Delete } from '@mui/icons-material';
 import Modal from 'react-modal'
-import EditIcon from '@mui/icons-material/Edit';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import NewComment from './NewComment';
 import AddCommentIcon from '@mui/icons-material/AddComment';
-const Blog = (props) => {
+
+
+const Blog = ({user}) => {
   const {id} = useParams();
+  const navigate =  useNavigate();
   const [commentModal,setCommentModalOpen ] = useState(false)
   const [blog,setBlog] = useState([])
   const [comments,setComments] = useState([])
-  const addLike = (choice)=>{
-     switch(choice)
-     {
-      case 'like':
-          
-      case "unlike": 
-     }
+  const [openDel,setOpenDel] = useState(false)
+
+  const deleteBlog = ()=>{ // makes DELETE request to remove the blog
+
+    fetch(`/api/blog/${id}`,{
+      method : 'DELETE'
+    }).then(res => res.json())
+      .then(data => console.log(data.msg))
+      .catch(err => console.log(err)) 
+
   }
-  const callAPI = ()=>
+
+  const callAPI = ()=> // loads the blog contents
   {
     
     fetch(`/api/blogs/${id}`)
@@ -38,7 +48,35 @@ const Blog = (props) => {
   },[])
   return (
     <div>
-        <Navbar username = {props.user}/>
+    {
+        (blog.author === user) && <div className='float-right p-2' >
+          <Button title='Delete Blog' onClick={()=>setOpenDel(true)}> <Delete color='primary' fontSize='medium'/></Button>
+          <Dialog
+        open={openDel}
+        onClose={()=> setOpenDel(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Are you sure you want to delete this blog?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            The Blog will be permanently deleted
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button  onClick={()=>{
+            deleteBlog()
+            setOpenDel(false)
+            navigate(-1)
+          }} autoFocus>
+            Yes
+          </Button>
+          <Button  onClick={()=> setOpenDel(false)}>No</Button>
+        </DialogActions>
+      </Dialog>
+        </div>}
         <div>
            <h1 className='text-3xl p-3 text-center font-prata border-b-2 py-6'>
                {blog.title}

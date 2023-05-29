@@ -4,7 +4,7 @@ import Draft from './Draft';
 import Modal from 'react-modal'
 import CancelIcon from '@mui/icons-material/Cancel';
 import { AccountBox } from '@mui/icons-material';
-
+import logo from '../assets/logo.png'
 Modal.setAppElement('#root'); // set the app root element to handle screen readers
 export const Navbar = (props) => {
     const [open,isOpen] = useState(false)
@@ -28,7 +28,7 @@ export const Navbar = (props) => {
         </Modal>
          <nav className="flex w-full items-center justify-between flex-wrap bg-gradient-to-r from-cyan-600 to-cyan-800 p-6">
           <div className="flex items-center flex-shrink-0 text-white mr-6">
-            <svg className="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+            <a href='/'><img src={logo} className='w-8 rounded-2xl mx-2 shadow-cyan-400 shadow-lg'/></a>
             <span className="font-semibold text-xl tracking-tight">Blog-app</span>
           </div>
           <div class="block lg:hidden">

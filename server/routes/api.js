@@ -32,10 +32,23 @@ route.post('/submit',async (req,res)=>{ //create a new blog
     res.json({msg:'saved'})
 
 })
-
+route.delete('/blog/:id',async(req,res)=>{
+  const blog = await blogs.findOne({
+    _id:req.params.id
+  })
+  if(req.session.username !== blog.author)
+  {
+    return res.status(401).json({msg: 'unauthorized'}) 
+  } 
+  
+  await blogs.deleteOne({
+      _id : req.params.id
+    })
+   res.status(202).json({msg : 'deleted'}) 
+})
 route.get('/blogs',async (req,res)=>{
     const data = await blogs.find()
-    res.json(data)
+    res.status(200).json(data)
 })
 
 route.get('/blogs/:id',async(req,res)=>{

@@ -1,5 +1,6 @@
 import './index.css'
 import { useEffect,useState } from 'react';
+import { Navbar } from './components/Navbar';
 import Blog from './components/Blog';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -25,7 +26,7 @@ function App() {
   return (
       <div>
     
-  
+    <Navbar username = {user}/>
     <Router>
       <Routes>
       <Route path="/" element={<Home user={user}/>}/> 
