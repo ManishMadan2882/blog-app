@@ -27,9 +27,9 @@ const Home = (props) => {
         <h1 className='m-6 text-2xl font-extralight'>Latest Blogs</h1>
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 '>
         {blogs.map((Element,key)=>{
-            return <Link to={`/blog/${Element._id}`}>
-                     <Card  imgUrl={Element.imgUrl}  title={Element.title} content = {Element.content}/>
-                   </Link>
+            return <div className='flex justify-center '>
+                     <Card url={"/blog/"+Element._id}  imgUrl={Element.imgUrl}  title={Element.title} content = {Element.content.slice(0,80)} author={Element.author}  />
+                   </div>
         })}
         </div>
         
