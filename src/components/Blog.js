@@ -12,6 +12,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import NewComment from './NewComment';
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 
 const Blog = ({user}) => {
@@ -21,7 +23,12 @@ const Blog = ({user}) => {
   const [blog,setBlog] = useState([])
   const [comments,setComments] = useState([])
   const [openDel,setOpenDel] = useState(false)
+  const convertStringToHTML = htmlString => {
+    const parser = new DOMParser();
+    const html = parser.parseFromString(htmlString, 'text/html');
 
+    return html.body;
+}
   const deleteBlog = ()=>{ // makes DELETE request to remove the blog
 
     fetch(`/api/blog/${id}`,{
@@ -85,11 +92,13 @@ const Blog = ({user}) => {
            <div className='flex justify-center'>
               <img alt="Image" className='py-6 h-64 drop-shadow-xl' src={blog.imgUrl}/>
            </div>
-            <div className='flex justify-center'>
-
-           <TextareaAutosize value={blog.content} disabled className='h-max   text-lg   p-2 pb-28 lg:pb-14 res leading-loose font-prata box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none ' />
-          
-            </div>
+             <div  className='flex justify-center '>
+               <div id='blogContent' className='shadow-lg  border h-max font-lora p-4 pb-28 lg:pb-14 leading-loose box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none '>
+                  
+                <ReactMarkdown  children={blog.content} rehypePlugins={[rehypeRaw]}/>     
+             
+             </div>
+             </div>
             </div>
 
             <div className='p-4 border-gray-600 m-8 box-shadow-lg border  flex justify-evenly'>
