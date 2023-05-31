@@ -17,8 +17,8 @@ const Card = ({author,url,imgUrl,title,content}) => {
       </div>
       <div className='p-5 block h-36 overflow-hidden'>
         
-        <div  id='inline-all-custom' className=' text-gray-600'>
-        <ReactMarkdown  children={content} rehypePlugins={[rehypeRaw]}/>
+        <div  id='inline-all-custom overflow-x-hidden' className=' text-gray-600'>
+        <ReactMarkdown  children={content.trim()} rehypePlugins={[rehypeRaw]}/>
          ...read more
         </div>
       </div>

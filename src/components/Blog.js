@@ -1,5 +1,6 @@
 import React, { useEffect,useState } from 'react'
-import { Button, TextareaAutosize } from '@mui/base';
+import { Button} from '@mui/base';
+import { Edit } from '@mui/icons-material';
 import Comment from './Comment';
 import { useParams,useNavigate } from 'react-router-dom';
 import { Cancel } from '@mui/icons-material';
@@ -56,8 +57,9 @@ const Blog = ({user}) => {
   return (
     <div>
     {
-        (blog.author === user) && <div className='float-right p-2' >
-          <Button title='Delete Blog' onClick={()=>setOpenDel(true)}> <Delete color='primary' fontSize='medium'/></Button>
+        (blog.author === user) && <div className='float-right p-2 ' >
+          <Button className='m-2' title='Delete Blog' onClick={()=>setOpenDel(true)}> <Delete color='primary' fontSize='medium'/></Button>
+          <Button className='m-2'><Edit color='primary'/></Button>
           <Dialog
         open={openDel}
         onClose={()=> setOpenDel(false)}
@@ -73,14 +75,18 @@ const Blog = ({user}) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button  onClick={()=>{
+          <Button  
+          className='p-2 m-2 bg-rose-800 text-white shadow-md'
+          onClick={()=>{
             deleteBlog()
             setOpenDel(false)
             navigate(-1)
           }} autoFocus>
             Yes
           </Button>
-          <Button  onClick={()=> setOpenDel(false)}>No</Button>
+          <Button  
+           className='p-2 m-2  bg-green-800 text-white shadow-md'
+          onClick={()=> setOpenDel(false)}>No</Button>
         </DialogActions>
       </Dialog>
         </div>}
@@ -90,18 +96,18 @@ const Blog = ({user}) => {
            </h1>          
 
            <div className='flex justify-center'>
-              <img alt="Image" className='py-6 h-64 drop-shadow-xl' src={blog.imgUrl}/>
+              <img alt="Image" className='py-6 max-w-full lg:max-w-[60%] drop-shadow-xl' src={blog.imgUrl}/>
            </div>
              <div  className='flex justify-center '>
-               <div id='blogContent' className='shadow-lg  border h-max font-lora p-4 pb-28 lg:pb-14 leading-loose box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none '>
+               <div id='blogContent' className='shadow-lg overflow-hidden border h-max font-lora p-4 pb-28 lg:pb-14 leading-loose box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none '>
                   
                 <ReactMarkdown  children={blog.content} rehypePlugins={[rehypeRaw]}/>     
-             
+                 
              </div>
              </div>
             </div>
 
-            <div className='p-4 border-gray-600 m-8 box-shadow-lg border  flex justify-evenly'>
+            <div className='p-4 border-gray-600 m-8 box-shadow-lg border flex justify-evenly'>
              {/*  <Button onClick={()=> {
                   like?
                   setLikeCount(likeCount-1)

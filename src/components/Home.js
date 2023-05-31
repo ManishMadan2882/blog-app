@@ -27,7 +27,7 @@ const Home = (props) => {
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 '>
         {blogs.map((Element,key)=>{
             return <div className='flex justify-center '>
-                     <Card url={"/blog/"+Element._id}  imgUrl={Element.imgUrl}  title={Element.title} content = {Element.content.slice(0,80)} author={Element.author}  />
+                     <Card url={"/blog/"+Element._id}  imgUrl={Element.imgUrl}  title={Element.title} content = {Element.content.slice(0,200)} author={Element.author}  />
                    </div>
         })}
         </div>

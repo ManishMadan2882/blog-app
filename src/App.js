@@ -21,7 +21,7 @@ function App() {
         
     })
     .catch((err)=> console.log('Err  '+err))
-   })
+   },[])
 
   return (
       <div>

@@ -36,3 +36,13 @@ border-bottom: 0.2px solid;
 #blogContent>ul>li{
     font-size: 18px;
 }         
+#blogContent>p>a{
+  text-decoration: underline;
+  color: rgb(97, 97, 184); 
+}
+#blogContent>pre{
+  padding: 5px;
+  background-color: rgb(43, 51, 73);
+  color: rgb(255, 148, 9);
+  overflow-x: scroll;
+}

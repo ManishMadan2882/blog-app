@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import Draft from './Draft';
 import Modal from 'react-modal'
 import CancelIcon from '@mui/icons-material/Cancel';
+import { Login, Logout } from '@mui/icons-material';
 import { AccountBox } from '@mui/icons-material';
 import logo from '../assets/logo.png'
 Modal.setAppElement('#root'); // set the app root element to handle screen readers
@@ -28,7 +29,7 @@ export const Navbar = (props) => {
         </Modal>
          <nav className="flex w-full items-center justify-between flex-wrap bg-gradient-to-r from-cyan-600 to-cyan-800 p-6">
           <div className="flex items-center flex-shrink-0 text-white mr-6">
-            <a href='/'><img src={logo} className='w-8 rounded-2xl mx-2 shadow-cyan-400 shadow-lg'/></a>
+            <a href='/'><img src={logo} className='w-8 rounded-2xl mx-2 shadow-lg'/></a>
             <span className="font-semibold text-xl tracking-tight">Blog-app</span>
           </div>
           <div class="block lg:hidden">
@@ -52,14 +53,21 @@ export const Navbar = (props) => {
              
                (
                  <div className='inline'>
-                 <h1 className='text-white inline px-5'>{props.username}</h1>
-                 <Button className='' variant='contained' onClick={
+                 <h1 className='text-white inline px-5 '>
+                   <AccountBox/> 
+                   {props.username}
+                 </h1>
+                 <Button  
+                 title='LOGOUT'
+                 onClick={
                    async ()=>{
                     await fetch('/api/logout');
                     window.location.reload(false) 
                  }
                    
-                 }>LOGOUT</Button>
+                 }>
+                    <Logout htmlColor='white'/>
+                 </Button>
                  </div>
                 )
                 :
