@@ -7,8 +7,7 @@ This documentation provides an overview and instructions for using the Blog Appl
 3. Usage
 4. Configuration
 5. API Endpoints
-6. Contributing
-7. License
+6. Feedback
 ## Prerequisites
 Before installing and using the Blog Application, ensure you have the following prerequisites:
 
