@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 const Card = ({author,url,imgUrl,title,content}) => {
   return (
-    <div className='bg-gray-100 relative h-[400px] overflow-hidden cursor-pointer  rounded-md border  shadow-lg m-6 p-4 '>
+    <div className='bg-gray-100 relative w-[300px]  h-[400px] overflow-hidden cursor-pointer  rounded-md border  shadow-lg m-6 p-4 '>
      
       <Link to={url}>
       <div className=' '>
@@ -17,7 +17,7 @@ const Card = ({author,url,imgUrl,title,content}) => {
       </div>
       <div className='p-5 block h-36 overflow-hidden'>
         
-        <div  id='inline-all-custom overflow-x-hidden' className=' text-gray-600'>
+        <div  id='inline-all-custom overflow-hidden' className=' text-gray-600'>
         <ReactMarkdown  children={content.trim()} rehypePlugins={[rehypeRaw]}/>
          ...read more
         </div>
