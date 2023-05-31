@@ -1,6 +1,8 @@
 import React, { useEffect,useState } from 'react'
+import Page404 from './Page404';
 import { Button} from '@mui/base';
-import { Edit } from '@mui/icons-material';
+import EditDraft from './EditDraft';
+import { Edit} from '@mui/icons-material';
 import Comment from './Comment';
 import { useParams,useNavigate } from 'react-router-dom';
 import { Cancel } from '@mui/icons-material';
@@ -24,18 +26,14 @@ const Blog = ({user}) => {
   const [blog,setBlog] = useState([])
   const [comments,setComments] = useState([])
   const [openDel,setOpenDel] = useState(false)
-  const convertStringToHTML = htmlString => {
-    const parser = new DOMParser();
-    const html = parser.parseFromString(htmlString, 'text/html');
-
-    return html.body;
-}
+  const [openEdit,setOpenEdit] = useState(false)
+  
   const deleteBlog = ()=>{ // makes DELETE request to remove the blog
 
     fetch(`/api/blog/${id}`,{
       method : 'DELETE'
     }).then(res => res.json())
-      .then(data => console.log(data.msg))
+      .then(data => window.location.replace('/'))
       .catch(err => console.log(err)) 
 
   }
@@ -45,7 +43,12 @@ const Blog = ({user}) => {
     
     fetch(`/api/blogs/${id}`)
     .then(res => res.json())
-    .then(data => {setBlog(data)
+    .then(data => {
+      if(data.msg === 'not found')
+      {
+        window.location.replace('/pagenotfound')
+      }
+      setBlog(data)
     console.log(data);
     setComments(data.comments)
   })
@@ -58,8 +61,15 @@ const Blog = ({user}) => {
     <div>
     {
         (blog.author === user) && <div className='float-right p-2 ' >
+          <Button className='m-2'><Edit color='primary' onClick={()=>setOpenEdit(true)}/></Button>
+          <Modal isOpen={openEdit}>
+               <div >
+               <button onClick={()=>setOpenEdit(false)} className='float-right' >{<Cancel/>}</button>
+               </div>
+                  <EditDraft title={blog.title} content={blog.content} imgUrl={blog.imgUrl} id={id}/>
+           </Modal>
+         
           <Button className='m-2' title='Delete Blog' onClick={()=>setOpenDel(true)}> <Delete color='primary' fontSize='medium'/></Button>
-          <Button className='m-2'><Edit color='primary'/></Button>
           <Dialog
         open={openDel}
         onClose={()=> setOpenDel(false)}

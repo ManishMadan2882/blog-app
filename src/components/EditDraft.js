@@ -7,14 +7,15 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-const Draft = () => {
-   const [title,setTitle] = useState('')
-   const [imgUrl,setImgUrl] = useState('')
-   const [content,setContent] = useState('') 
+const EditDraft = (props) => {
+   const [title,setTitle] = useState(props.title)
+   const [imgUrl,setImgUrl] = useState(props.imgUrl)
+   const [content,setContent] = useState(props.content) 
    const [mode,setMode] = useState('edit')
    const modeChange = (e)=>{
     setMode(e.target.value)
    }
+   
    const upload = ()=>{
     const payload = {
         title:title,
@@ -22,8 +23,8 @@ const Draft = () => {
         content:content
     }
     
-        fetch('/api/create', {
-            method: 'POST',
+        fetch(`/api/update/${props.id}`, {
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
             },
@@ -81,9 +82,9 @@ const Draft = () => {
         }
        </div>
        
-       <Button variant="contained" onClick={upload} className='py-2 w-full'>submit</Button>
+       <Button  variant="contained" onClick={upload} className='py-2 w-full'>UPDATE</Button>
     </div>
   )
 }
 
-export default Draft
+export default EditDraft

@@ -5,6 +5,7 @@ import Blog from './components/Blog';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
+import Page404 from './components/Page404';
 import {Routes, Route,  BrowserRouter as Router} from 'react-router-dom' 
 function App() {
    const [user,setUser] = useState('*')
@@ -32,7 +33,9 @@ function App() {
       <Route path="/" element={<Home user={user}/>}/> 
          <Route path="/login" element={<Login  />}/> 
          <Route path="/register" element={<Register  />}/> 
-         <Route path="/blog/:id" element={<Blog user={user} />}/> 
+         <Route path="/blog/:id" element={<Blog user={user} />}/>
+         <Route path="/pagenotfound" element={<Page404/>}/>
+         <Route path="*" element={<Page404/>}/> 
       </Routes>
     </Router>
   </div>

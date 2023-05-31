@@ -20,7 +20,7 @@ route.use(session({
 }));
 
 
-route.post('/submit',async (req,res)=>{ //create a new blog
+route.post('/create',async (req,res)=>{ //create a new blog
     const newbie  = new blogs( {
         title:req.body.title,
         content:req.body.content,
@@ -29,8 +29,33 @@ route.post('/submit',async (req,res)=>{ //create a new blog
     })
    await newbie.save()
    await user.updateOne({username:req.session.username},{ $push: { blogs: newbie._id } })
-    res.json({msg:'saved'})
+    res.json({msg:'saved',id:newbie._id})
 
+})
+route.put('/update/:id',async (req,res)=>{
+  try{
+   const blog = await blogs.findOne({_id:req.params.id})
+   if(blog.author === req.session.username)
+   {
+    await blogs.updateOne({
+      _id : req.params.id
+    },
+    {
+      $set :{
+        title : req.body.title,
+        imgUrl : req.body.imgUrl,
+        content : req.body.content
+      }
+    })
+    res.json({msg : 'edited',id:req.params.id})
+   }
+   else
+   res.status(401).json({msg:"Unauthorized"})
+ 
+  }
+  catch(err){
+    res.json({msg : 'Something Went Wrong '+err})
+  }
 })
 route.delete('/blog/:id',async(req,res)=>{
   const blog = await blogs.findOne({
@@ -52,10 +77,18 @@ route.get('/blogs',async (req,res)=>{
 })
 
 route.get('/blogs/:id',async(req,res)=>{
-
-    const blog = await blogs.findOne({_id:req.params.id})
-
+ try{
+ 
+  const blog = await blogs.findOne({_id:req.params.id})
+  if(blog == null)
+  return res.status(404).json({msg:'not found'})
+  
   res.status(200).json(blog)
+  
+  } 
+  catch(err){
+    return res.status(404).json({msg:'not found'})  
+  } 
 })
 route.post('/comment/:id',async (req,res)=>{
     if (req.session.username){
