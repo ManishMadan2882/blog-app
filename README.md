@@ -15,9 +15,14 @@ Before installing and using the Blog Application, ensure you have the following 
 * Node.js (version 12 or higher)
 * npm (Node Package Manager) or Yarn
 * MongoDB (installed and running)
-* Environment variables to run locally 
-  *CLOUD - Add the mongo Database URI(local/remote) 
-  *SECRET - Add a string literal for Express-session's secret key
+
+## Configuration
+The Blog Application requires configuration for connecting to the MongoDB database. To configure the application, follow these steps:
+* Create the .env file in the project root directory.
+* Open the .env file in a text editor.
+* Add the CLOUD value to match your MongoDB connection string.
+* Add the SECRET value as a String Literal eg. 'keyboard cat'
+* Save the .env 
 
 # Installation
 To install the Blog Application, follow these steps:
@@ -37,14 +42,6 @@ To start the Blog Application, follow these steps:
 node server/index
 ```
 4. Open a web browser and visit http://localhost:5400 to access the Blog Application.
-
-## Configuration
-The Blog Application requires configuration for connecting to the MongoDB database. To configure the application, follow these steps:
-* Create the .env file in the project root directory.
-* Open the .env file in a text editor.
-* Add the CLOUD value to match your MongoDB connection string.
-* Add the SECRET value as a String Literal eg. 'keyboard cat'
-* Save the .env 
 
 ## API Endpoints
 
