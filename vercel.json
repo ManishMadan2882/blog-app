@@ -1,13 +1,5 @@
 {
-    "builds":[
-        {
-            "src":"./server/index.js",
-            "use":"@vercel/node",
-            "config": {
-           "distDir": "build"
-            }
-        }
-    ],
+ 
     "routes":[
         {
             "src":"/(.*)",
