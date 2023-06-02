@@ -19,8 +19,8 @@ function App() {
         if(data.isAuth)
         {
           setUser(data.userData.username)
-          setLoading(false)
         }
+        setLoading(false)
         
     })
     .catch((err)=> console.log('Err  '+err))
