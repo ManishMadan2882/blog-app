@@ -1,18 +1,17 @@
 import React from 'react'
 import Card from './Card'
-import { Link } from 'react-router-dom'
 import { useEffect,useState } from 'react'
-import { Navbar } from './Navbar'
-
+import { HashLoader } from 'react-spinners'
 const Home = (props) => {
     const [blogs,setBlogs] = useState([])
-
+    const [loading,setLoading ] = useState(true)
     useEffect(() => {
         const fetchData = async () => {
           try {
             const response = await fetch('/api/blogs');
             const jsonData = await response.json();
             setBlogs(jsonData);
+            setLoading(false);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -23,6 +22,9 @@ const Home = (props) => {
     
   return (
     <div>
+        {
+          !loading ?
+          <div>
         <h1 className='m-6 text-2xl font-extralight'>Latest Blogs</h1>
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 '>
         {blogs.map((Element,key)=>{
@@ -31,6 +33,17 @@ const Home = (props) => {
                    </div>
         })}
         </div>
+        </div>
+        :
+        <HashLoader
+        className='absolute mt-[50%] md:mt-[150px] mx-auto align-middle '
+        color='#36d7b7'
+        loading={loading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+    />
+        }
         
     </div>
   )

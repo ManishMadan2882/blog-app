@@ -6,8 +6,10 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import Page404 from './components/Page404';
+import { HashLoader } from 'react-spinners';
 import {Routes, Route,  BrowserRouter as Router} from 'react-router-dom' 
 function App() {
+  const [loading,setLoading] = useState(true)
    const [user,setUser] = useState('*')
    useEffect(()=>{
     fetch('/api/ping')
@@ -17,7 +19,7 @@ function App() {
         if(data.isAuth)
         {
           setUser(data.userData.username)
-         
+          setLoading(false)
         }
         
     })
@@ -27,7 +29,19 @@ function App() {
   return (
       <div>
     
+    {loading ?
+      <HashLoader
+        className='absolute mt-[50%] md:mt-[150px] mx-auto align-middle '
+        color='#36d7b7'
+        size={150}
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+    />
+     : 
+    <div>
     <Navbar username = {user}/>
+    
     <Router>
       <Routes>
       <Route path="/" element={<Home user={user}/>}/> 
@@ -38,6 +52,8 @@ function App() {
          <Route path="*" element={<Page404/>}/> 
       </Routes>
     </Router>
+    </div>
+    }
   </div>
     
   );

@@ -17,7 +17,7 @@ import NewComment from './NewComment';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-
+import { HashLoader } from 'react-spinners';
 
 const Blog = ({user}) => {
   const {id} = useParams();
@@ -27,7 +27,7 @@ const Blog = ({user}) => {
   const [comments,setComments] = useState([])
   const [openDel,setOpenDel] = useState(false)
   const [openEdit,setOpenEdit] = useState(false)
-  
+  const [loading,setLoading] = useState(true);
   const deleteBlog = ()=>{ // makes DELETE request to remove the blog
 
     fetch(`/api/blog/${id}`,{
@@ -51,6 +51,7 @@ const Blog = ({user}) => {
       setBlog(data)
     console.log(data);
     setComments(data.comments)
+    setLoading(false)
   })
     console.log(blog);
   }
@@ -59,94 +60,110 @@ const Blog = ({user}) => {
   },[])
   return (
     <div>
-    {
-        (blog.author === user) && <div className='float-right p-2 ' >
-          <Button className='m-2'><Edit color='primary' onClick={()=>setOpenEdit(true)}/></Button>
-          <Modal isOpen={openEdit}>
-               <div >
-               <button onClick={()=>setOpenEdit(false)} className='float-right' >{<Cancel/>}</button>
-               </div>
-                  <EditDraft title={blog.title} content={blog.content} imgUrl={blog.imgUrl} id={id}/>
-           </Modal>
+    <HashLoader
+        className='absolute mt-[50%] md:mt-[150px] mx-auto align-middle '
+        color='#36d7b7'
+        loading={loading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+    />
+     {!loading &&
+       <div>
+       {
+
+(blog.author === user) && <div className='float-right p-2 ' >
+  <Button className='m-2'><Edit color='primary' onClick={()=>setOpenEdit(true)}/></Button>
+  <Modal isOpen={openEdit}>
+       <div >
+       <button onClick={()=>setOpenEdit(false)} className='float-right' >{<Cancel/>}</button>
+       </div>
+          <EditDraft title={blog.title} content={blog.content} imgUrl={blog.imgUrl} id={id}/>
+   </Modal>
+ 
+  <Button className='m-2' title='Delete Blog' onClick={()=>setOpenDel(true)}> <Delete color='primary' fontSize='medium'/></Button>
+  <Dialog
+open={openDel}
+onClose={()=> setOpenDel(false)}
+aria-labelledby="alert-dialog-title"
+aria-describedby="alert-dialog-description"
+>
+<DialogTitle id="alert-dialog-title">
+  {"Are you sure you want to delete this blog?"}
+</DialogTitle>
+<DialogContent>
+  <DialogContentText id="alert-dialog-description">
+    The Blog will be permanently deleted
+  </DialogContentText>
+</DialogContent>
+<DialogActions>
+  <Button  
+  className='p-2 m-2 bg-rose-800 text-white shadow-md'
+  onClick={()=>{
+    deleteBlog()
+    setOpenDel(false)
+    navigate(-1)
+  }} autoFocus>
+    Yes
+  </Button>
+  <Button  
+   className='p-2 m-2  bg-green-800 text-white shadow-md'
+  onClick={()=> setOpenDel(false)}>No</Button>
+</DialogActions>
+</Dialog>
+</div>}
+<div>
+   <h1 className='text-3xl p-3 text-center font-prata border-b-2 py-6'>
+       {blog.title}
+   </h1>          
+
+   {blog.imgUrl &&  <div className='flex justify-center'>
+      <img alt="Image" className='py-6 max-w-full lg:max-w-[60%] drop-shadow-xl' src={blog.imgUrl}/>
+   </div>}
+     <div  className='flex justify-center '>
+       <div id='blogContent' className='shadow-lg overflow-hidden border h-max font-lora p-4 pb-28 lg:pb-14 leading-loose box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none '>
+          
+        <ReactMarkdown  children={blog.content} rehypePlugins={[rehypeRaw]}/>     
          
-          <Button className='m-2' title='Delete Blog' onClick={()=>setOpenDel(true)}> <Delete color='primary' fontSize='medium'/></Button>
-          <Dialog
-        open={openDel}
-        onClose={()=> setOpenDel(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Are you sure you want to delete this blog?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            The Blog will be permanently deleted
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button  
-          className='p-2 m-2 bg-rose-800 text-white shadow-md'
-          onClick={()=>{
-            deleteBlog()
-            setOpenDel(false)
-            navigate(-1)
-          }} autoFocus>
-            Yes
-          </Button>
-          <Button  
-           className='p-2 m-2  bg-green-800 text-white shadow-md'
-          onClick={()=> setOpenDel(false)}>No</Button>
-        </DialogActions>
-      </Dialog>
-        </div>}
-        <div>
-           <h1 className='text-3xl p-3 text-center font-prata border-b-2 py-6'>
-               {blog.title}
-           </h1>          
+     </div>
+     </div>
+    </div>
 
-           <div className='flex justify-center'>
-              <img alt="Image" className='py-6 max-w-full lg:max-w-[60%] drop-shadow-xl' src={blog.imgUrl}/>
-           </div>
-             <div  className='flex justify-center '>
-               <div id='blogContent' className='shadow-lg overflow-hidden border h-max font-lora p-4 pb-28 lg:pb-14 leading-loose box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none '>
-                  
-                <ReactMarkdown  children={blog.content} rehypePlugins={[rehypeRaw]}/>     
-                 
-             </div>
-             </div>
+    <div className='p-4 border-gray-600 m-8 box-shadow-lg border flex justify-evenly'>
+     {/*  <Button onClick={()=> {
+          like?
+          setLikeCount(likeCount-1)
+          :
+          setLikeCount(likeCount+1)
+          setLike(!like) 
+          fetch(`/api/like/${id}`)
+      }} className='px-4 py-2 text-2xl' ><FavoriteIcon  fontSize='large'  />{likeCount}</Button>  */}
+      <Button onClick={() => setCommentModalOpen(true)}><AddCommentIcon fontSize='large' />{comments && comments.length}</Button>
+    </div>
+    {
+      <Modal className=' flex justify-center' onRequestClose={()=> setCommentModalOpen(false)}  isOpen={commentModal}>
+            <div className='mt-[20%] w-full md:w-auto bg-gradient-to-r from-cyan-700 to-cyan-200 rounded-2xl p-4 '>
+               <button onClick={()=> setCommentModalOpen(false)} className='block float-right' >{<Cancel/>}</button>
+            <NewComment setComments comments blogId={id} closeModal = {setCommentModalOpen} />
             </div>
-
-            <div className='p-4 border-gray-600 m-8 box-shadow-lg border flex justify-evenly'>
-             {/*  <Button onClick={()=> {
-                  like?
-                  setLikeCount(likeCount-1)
-                  :
-                  setLikeCount(likeCount+1)
-                  setLike(!like) 
-                  fetch(`/api/like/${id}`)
-              }} className='px-4 py-2 text-2xl' ><FavoriteIcon  fontSize='large'  />{likeCount}</Button>  */}
-              <Button onClick={() => setCommentModalOpen(true)}><AddCommentIcon fontSize='large' />{comments && comments.length}</Button>
-            </div>
-            {
-              <Modal className=' flex justify-center' onRequestClose={()=> setCommentModalOpen(false)}  isOpen={commentModal}>
-                    <div className='mt-[20%] w-full md:w-auto bg-gradient-to-r from-cyan-700 to-cyan-200 rounded-2xl p-4 '>
-                       <button onClick={()=> setCommentModalOpen(false)} className='block float-right' >{<Cancel/>}</button>
-                    <NewComment setComments comments blogId={id} closeModal = {setCommentModalOpen} />
-                    </div>
-               </Modal>  
-            }
-            <div className='flex justify-center'>
-            <div className='font-prata md:w-96 grid-flow-row grid-cols-1 '>
-              {
-                
-                comments && comments.map((element,key) =>{
-                  return <Comment account={element.account} comment={element.comment}/>
-                })
-              }           
-              
-            </div>
-            </div>
+       </Modal>  
+    }
+    <div className='flex justify-center'>
+    <div className='font-prata md:w-96 grid-flow-row grid-cols-1 '>
+      {
+        
+        comments && comments.map((element,key) =>{
+          return <Comment account={element.account} comment={element.comment}/>
+        })
+      }           
+      
+    </div>
+    </div>
+       </div>
+      }
+  
+    
+    
 
     </div>
   )
