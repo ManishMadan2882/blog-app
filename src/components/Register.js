@@ -34,10 +34,10 @@ const Register = () => {
        <TextField id="outlined-basic" value={username} onChange={(e)=>setUsername(e.target.value)}  label="Username" variant="outlined"  />
        </div>
        <div className='m-6'>
-       <TextField id="outlined-basic" value={password} onChange={(e)=>setPassword(e.target.value)} label="Password" variant="outlined" />
+       <TextField id="outlined-basic" value={password} type='password' onChange={(e)=>setPassword(e.target.value)} label="Password" variant="outlined" />
        </div>
        <div className='justify-center flex'>
-       <Button variant="contained" onClick={postToAPI}>Sign Up</Button>
+       <Button className='w-full' variant="contained" onClick={postToAPI}>Sign Up</Button>
        </div>
        <h1 className='text-center p-2'>{msg}</h1>
        </div>

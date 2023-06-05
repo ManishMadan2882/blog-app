@@ -29,8 +29,8 @@ const NewComment = ({blogId,closeModal}) => {
   return (
     <div >
        <label className='block text-white'>Add Comment</label>
-       <TextareaAutosize value={text} onChange={(e)=> setText(e.target.value)} placeholder='Write the Comment here' className='bg-gray-100 rounded-lg p-2 w-full ' minRows={3}/>
-       <button onClick={()=> comment()} variant='outlined' className="w-full bg-white rounded-lg" ><SendOutlined  color='primary'/></button> 
+       <TextareaAutosize value={text} onChange={(e)=> setText(e.target.value)} placeholder='Write the Comment here' className='bg-gray-100 p-2 w-full ' minRows={3}/>
+       <button onClick={()=> comment()} variant='outlined' className="w-full px-4 py-2 bg-gray-200" ><SendOutlined  color='primary'/></button> 
     </div>
   )
 }

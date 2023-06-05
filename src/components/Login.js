@@ -39,7 +39,7 @@ const Login = () => {
        <TextField id="outlined-basic" value={username} onChange={(e)=>setUsername(e.target.value)} label="Username" variant="outlined"  />
        </div>
        <div className='m-6'>
-       <TextField id="outlined-basic" value={password} onChange={(e)=>setPassword(e.target.value)} label="Password" variant="outlined" />
+       <TextField type='password' id="outlined-basic" value={password} onChange={(e)=>setPassword(e.target.value)} label="Password" variant="outlined" />
        </div>
        <div>
          <span className='text-center block my-2'>

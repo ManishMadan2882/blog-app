@@ -129,27 +129,20 @@ aria-describedby="alert-dialog-description"
      </div>
     </div>
 
-    <div className='p-4 border-gray-600 m-8 box-shadow-lg border flex justify-evenly'>
-     {/*  <Button onClick={()=> {
-          like?
-          setLikeCount(likeCount-1)
-          :
-          setLikeCount(likeCount+1)
-          setLike(!like) 
-          fetch(`/api/like/${id}`)
-      }} className='px-4 py-2 text-2xl' ><FavoriteIcon  fontSize='large'  />{likeCount}</Button>  */}
-      <Button onClick={() => setCommentModalOpen(true)}><AddCommentIcon fontSize='large' />{comments && comments.length}</Button>
+    <div className='p-4 flex   justify-center'>
+    
+      <Button className=' w-full lg:w-[60%] border-gray-600 m-8 box-shadow-lg border py-2 ' onClick={() => setCommentModalOpen(true)}><AddCommentIcon fontSize='large' />{comments && comments.length}</Button>
     </div>
     {
       <Modal className=' flex justify-center' onRequestClose={()=> setCommentModalOpen(false)}  isOpen={commentModal}>
-            <div className='mt-[20%] w-full md:w-auto bg-gradient-to-r from-cyan-700 to-cyan-200 rounded-2xl p-4 '>
-               <button onClick={()=> setCommentModalOpen(false)} className='block float-right' >{<Cancel/>}</button>
+            <div className='mt-[20%] w-full md:w-auto bg-gradient-to-r from-cyan-700 to-cyan-600  p-4 '>
+               <button onClick={()=> setCommentModalOpen(false)} className='block float-right p-4' >{<Cancel/>}</button>
             <NewComment setComments comments blogId={id} closeModal = {setCommentModalOpen} />
             </div>
        </Modal>  
     }
     <div className='flex justify-center'>
-    <div className='font-prata md:w-96 grid-flow-row grid-cols-1 '>
+    <div className='font-prata w-full lg:w-[60%] grid-flow-row grid-cols-1 '>
       {
         
         comments && comments.map((element,key) =>{
