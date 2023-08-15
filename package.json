@@ -1,7 +1,7 @@
 {
   "name": "blogs",
   "version": "0.1.0",
-  "proxy": "http://localhost:5400",
+  "proxy": "https://blog-app-v7cp.onrender.com",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7",
     "react-modal": "^3.16.1",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "react-spinner": "^0.2.7",

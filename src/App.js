@@ -8,9 +8,11 @@ import Home from './components/Home';
 import Page404 from './components/Page404';
 import { HashLoader } from 'react-spinners';
 import {Routes, Route,  BrowserRouter as Router} from 'react-router-dom' 
+
+
 function App() {
-  const [loading,setLoading] = useState(true)
-   const [user,setUser] = useState('*')
+  const [loading,setLoading] = useState(true);
+   const [user,setUser] = useState('*');
    useEffect(()=>{
     fetch('/api/ping')
     .then((res)=>res.json())
@@ -49,7 +51,9 @@ function App() {
          <Route path="/register" element={<Register  />}/> 
          <Route path="/blog/:id" element={<Blog user={user} />}/>
          <Route path="/pagenotfound" element={<Page404/>}/>
+        
          <Route path="*" element={<Page404/>}/> 
+
       </Routes>
     </Router>
     </div>

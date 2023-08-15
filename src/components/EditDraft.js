@@ -1,5 +1,8 @@
 import React,{useState} from 'react'
 import { TextField, Tooltip } from '@mui/material'
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import {Button} from '@mui/material'
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { Info } from '@mui/icons-material';
@@ -7,6 +10,20 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+const  modules  = {
+  toolbar: [
+      [{ font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ script:  "sub" }, { script:  "super" }],
+      ["blockquote", "code-block"],
+      [{ list:  "ordered" }, { list:  "bullet" }],
+      [{ indent:  "-1" }, { indent:  "+1" }, { align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+  ],
+};
 const EditDraft = (props) => {
    const [title,setTitle] = useState(props.title)
    const [imgUrl,setImgUrl] = useState(props.imgUrl)
@@ -45,12 +62,12 @@ const EditDraft = (props) => {
        <TextField value={title} onChange={(e)=>setTitle(e.target.value)} id="outlined" label="Title" variant="outlined" />
        </div>
        <div className='m-5'>
-       <TextField value={imgUrl} onChange={(e)=>setImgUrl(e.target.value)} id="outlined" label="Image URL" variant="outlined" />
+       <TextField value={imgUrl} onChange={(e)=>setImgUrl(e.target.value)} id="outlined" label="Cover Image URL" variant="outlined" />
        </div>        
-       <div className='m-5'>
+       <div className='m-5 my-8'>
         <label className=''>Content</label>
         
-        <Tooltip title="Content is Editable in Markdown Format">
+        <Tooltip title="Edit the text using the provided formatting features">
            <Info fontSize='small'/>
         </Tooltip>
         <ToggleButtonGroup
@@ -65,24 +82,18 @@ const EditDraft = (props) => {
         <ToggleButton onClick={(e)=>modeChange(e)} value="preview">Preview</ToggleButton>
        </ToggleButtonGroup> 
         {(mode === 'edit') ? 
-        <TextareaAutosize
-            value={content}
-            onChange={(e)=>setContent(e.target.value)}
-            placeholder='I would share my opion on ChatGPT 4.0 ....'
-            className='border w-full border-blue-500 p-6'
-            minRows={10}
-
-        />
+        <ReactQuill className='my-10 h-96' defaultValue={content} modules={modules} onChange={setContent} theme="snow" placeholder="Content goes here..."  />
         :
-            <div id='blogContent' className='shadow-lg overflow-hidden border h-max font-lora p-4 pb-28 lg:pb-14 leading-loose box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none '>
+            <div id='blogContent' className='shadow-lg   overflow-hidden border h-max font-lora p-4 pb-28 lg:pb-14 leading-loose box-shadow-lg w-full lg:w-[60%] bg-white text-justify resize-none '>
                   
                 <ReactMarkdown  children={content} rehypePlugins={[rehypeRaw]}/>     
                  
              </div>
         }
+        <Button  variant="contained" onClick={upload} className='py-2 w-full  '>UPDATE</Button>
        </div>
        
-       <Button  variant="contained" onClick={upload} className='py-2 w-full'>UPDATE</Button>
+       
     </div>
   )
 }
