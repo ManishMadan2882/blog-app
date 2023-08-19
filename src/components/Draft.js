@@ -39,7 +39,7 @@ const Draft = () => {
         content:content
     }
     
-        fetch('/api/create', {
+        fetch('/api/blog/create', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

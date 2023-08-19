@@ -9,7 +9,7 @@ const Register = () => {
         let payload = {
             username:username,password:password
         }
-        fetch('/api/register', {
+        fetch('/api/auth/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

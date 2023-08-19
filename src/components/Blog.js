@@ -1,5 +1,4 @@
 import React, { useEffect,useState } from 'react'
-import Page404 from './Page404';
 import { Button} from '@mui/base';
 import EditDraft from './EditDraft';
 import { Edit} from '@mui/icons-material';
@@ -41,7 +40,7 @@ const Blog = ({user}) => {
   const callAPI = ()=> // loads the blog contents
   {
     
-    fetch(`/api/blogs/${id}`)
+    fetch(`/api/blog/${id}`)
     .then(res => res.json())
     .then(data => {
       if(data.msg === 'not found')
@@ -72,7 +71,7 @@ const Blog = ({user}) => {
        <div>
        {
 
-(blog.author === user) && <div className='float-right p-2 ' >
+(blog.account.username === user) && <div className='float-right p-2 ' >
   <Button className='m-2'><Edit color='primary' onClick={()=>setOpenEdit(true)}/></Button>
   <Modal isOpen={openEdit}>
        <div >

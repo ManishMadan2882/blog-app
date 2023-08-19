@@ -61,7 +61,7 @@ export const Navbar = (props) => {
                  title='LOGOUT'
                  onClick={
                    async ()=>{
-                    await fetch('/api/logout');
+                    await fetch('/api/auth/logout');
                     window.location.reload(false) 
                  }
                    

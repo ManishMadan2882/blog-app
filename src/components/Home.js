@@ -8,8 +8,9 @@ const Home = (props) => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('/api/blogs');
+            const response = await fetch('/api/blog/all');
             const jsonData = await response.json();
+            console.log(jsonData[0].account.username)
             setBlogs(jsonData);
             setLoading(false);
           } catch (error) {
@@ -29,7 +30,7 @@ const Home = (props) => {
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 '>
         {blogs.map((Element,key)=>{
             return <div className='flex justify-center '>
-                     <Card url={"/blog/"+Element._id}  imgUrl={Element.imgUrl}  title={Element.title} content = {Element.content.slice(0,200)} author={Element.author}  />
+                     <Card key={key} url={"/blog/"+Element._id}  imgUrl={Element.imgUrl}  title={Element.title} content = {Element.content.slice(0,200)} author={Element.account ? Element.account.username : ""}  />
                    </div>
         })}
         </div>

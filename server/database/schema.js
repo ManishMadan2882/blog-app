@@ -13,14 +13,20 @@ const userSchema = new mongoose.Schema({
         required : true
     },
     blogs:{
-        type:Array,
-        default:[]
+        type: mongoose.Types.ObjectId,
+        ref: 'blogs'
     }
 });
 
 const blogsSchema = new mongoose.Schema({
     title:String,
-    author:String,
+    account:{
+        type: mongoose.Types.ObjectId,
+        ref:'user'
+    },
+    author:{
+        type: String
+    },
     imgUrl:String,
     content:String,
     comments:{

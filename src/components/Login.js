@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-
-import { PasswordOutlined } from '@mui/icons-material'
-
 import { TextField } from '@mui/material'
 import {Button} from '@mui/material'
 
@@ -13,7 +10,7 @@ const Login = () => {
         let payload = {
             username:username,password:password
         }
-        fetch('/api/login', {
+        fetch('/api/auth/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

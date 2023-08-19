@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import { TextField, Tooltip } from '@mui/material'
-
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {Button} from '@mui/material'
@@ -40,7 +39,7 @@ const EditDraft = (props) => {
         content:content
     }
     
-        fetch(`/api/update/${props.id}`, {
+        fetch(`/api/blog/update/${props.id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
