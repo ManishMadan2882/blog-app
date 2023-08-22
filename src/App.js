@@ -12,7 +12,7 @@ import Dashboard from './components/Dashboard';
 
 
 function App() {
-  const [loading,setLoading] = useState(!true);
+  const [loading,setLoading] = useState(true);
    const [user,setUser] = useState('*');
    useEffect(()=>{
     fetch('/api/ping')

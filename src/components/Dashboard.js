@@ -9,7 +9,6 @@ import {Modal} from '@mui/material';
 import UpdateUser from './UpdateUser';
 const Dashboard = ({currUser}) => {
   const {username} = useParams();
-  const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
   
@@ -34,7 +33,7 @@ const Dashboard = ({currUser}) => {
   return (
     <div className="bg-white  p-6 rounded shadow-md">
             
-      <div className="border w-full  bg-gradient-to-r from-cyan-700 to-sky-700 ...">
+      <div className="border w-full  bg-gradient-to-r from-cyan-600 to-sky-800 ...">
              {currUser === user.username &&
              <Button onClick={openModal} className=" p-2 absolute float-right " title="Edit Profile" sx={{ color: green[100] }}>
                 Edit
