@@ -53,10 +53,10 @@ export const Navbar = (props) => {
              
                (
                  <div className='inline'>
-                 <h1 className='text-white inline px-5 '>
+                 <a href={'/profile/'+props.username} className='text-white inline px-5 '>
                    <AccountBox/> 
                    {props.username}
-                 </h1>
+                 </a>
                  <Button  
                  title='LOGOUT'
                  onClick={
