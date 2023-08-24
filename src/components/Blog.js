@@ -136,7 +136,7 @@ aria-describedby="alert-dialog-description"
       <Modal className=' flex justify-center' onRequestClose={()=> setCommentModalOpen(false)}  isOpen={commentModal}>
             <div className='mt-[20%] w-full md:w-auto bg-gradient-to-r from-cyan-700 to-cyan-600  p-4 '>
                <button onClick={()=> setCommentModalOpen(false)} className='block float-right p-4' >{<Cancel/>}</button>
-            <NewComment setComments comments blogId={id} closeModal = {setCommentModalOpen} />
+            <NewComment setComments comments blogId={id} closeModal = {setCommentModalOpen} updateInfo = {callAPI} />
             </div>
        </Modal>  
     }

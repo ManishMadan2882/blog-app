@@ -7,11 +7,12 @@ import { useParams,useNavigate } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {Modal} from '@mui/material';
 import UpdateUser from './UpdateUser';
+import { DotLoader } from 'react-spinners';
 const Dashboard = ({currUser}) => {
   const {username} = useParams();
   const [user, setUser] = useState({});
+  const [loading,setLoading] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
-  
   function openModal() {
     setIsOpen(true);
   }
@@ -27,13 +28,16 @@ const Dashboard = ({currUser}) => {
     .then((res) => res.json())
     .then((data)=>{
       setUser(data);
+      setLoading(false)
     })      
   },[])
 
   return (
     <div className="bg-white  p-6 rounded shadow-md">
-            
-      <div className="border w-full  bg-gradient-to-r from-cyan-600 to-sky-800 ...">
+       <DotLoader color="#36d7b7" loading={loading} width={'100%'} className='absolute ml-[50%] mt-48'/>
+       {!loading &&  
+      <div>
+       <div className="border w-full  bg-gradient-to-r from-cyan-600 to-sky-800 ...">
              {currUser === user.username &&
              <Button onClick={openModal} className=" p-2 absolute float-right " title="Edit Profile" sx={{ color: green[100] }}>
                 Edit
@@ -84,6 +88,7 @@ const Dashboard = ({currUser}) => {
                } 
             </div>
           </div>
+          </div>}
     </div>
   );
 };

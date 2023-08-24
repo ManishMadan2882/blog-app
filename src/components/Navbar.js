@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import Draft from './Draft';
 import Modal from 'react-modal'
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Login, Logout } from '@mui/icons-material';
+import { Logout } from '@mui/icons-material';
 import { AccountBox } from '@mui/icons-material';
 import logo from '../assets/logo.png'
 Modal.setAppElement('#root'); // set the app root element to handle screen readers
