@@ -4,11 +4,12 @@ import 'react-quill/dist/quill.snow.css';
 import { TextField, Tooltip } from '@mui/material'
 
 import {Button} from '@mui/material'
-import { Info } from '@mui/icons-material';
+import { Google, Info } from '@mui/icons-material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import ImageUpload from './ImageUpload';
 const  modules  = {
   toolbar: [
       [{ font: [] }],
@@ -57,12 +58,11 @@ const Draft = () => {
    }
   return (
     <div>
-       <div className='m-5'>
+       <div className='m-5 flex justify-between'>
        <TextField value={title} onChange={(e)=>setTitle(e.target.value)} id="outlined" label="Title" variant="outlined" />
+       <Button variant="contained" onClick={upload} className='py-2 w-48 '>UPLOAD</Button>
        </div>
-       <div className='m-5'>
-       <TextField value={imgUrl} onChange={(e)=>setImgUrl(e.target.value)} id="outlined" label="Cover Image URL" variant="outlined" />
-       </div>        
+       <ImageUpload maxNumber={1} hitUrl={'Google.com'} preSetImages={[]}/>       
        <div className='m-5'>
         <label className=''>Content</label>
         <Tooltip title="Use the provided features to format your text">
@@ -90,7 +90,6 @@ const Draft = () => {
                  
              </div>
         }
-        <Button variant="contained" onClick={upload} className='py-2 w-full'>submit</Button>
        </div>
        
        

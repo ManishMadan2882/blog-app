@@ -50,11 +50,9 @@ const blogsSchema = new mongoose.Schema({
     comments:{
         type:Array,
         default:[]
-    },
-    createdAt:{
-        type: Date,
-        default: Date.now()
-    }   
+    },   
+},{
+    timestamps:true
 })
 
 const user = new mongoose.model("user",userSchema);
