@@ -2,14 +2,17 @@ import React,{useState} from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { TextField, Tooltip } from '@mui/material'
-
 import {Button} from '@mui/material'
-import { Google, Info } from '@mui/icons-material';
+import {Info } from '@mui/icons-material';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import ImageUpload from './ImageUpload';
+
+const imageUrlRegex = /^(http|https):\/\/.*\.(jpeg|jpg|gif|png)$/i;
+const base64Regex = /^data:image\/(jpeg|jpg|gif|png);base64,/i;
+
 const  modules  = {
   toolbar: [
       [{ font: [] }],
@@ -24,6 +27,15 @@ const  modules  = {
       ["clean"],
   ],
 };
+function checkImageFormat(input) {
+  if (imageUrlRegex.test(input)) {
+      return 'deployed';
+  } else if (base64Regex.test(input)) {
+      return 'base64';
+  } else {
+      return 'unknown';
+  }
+}
 const Draft = () => {
    const [title,setTitle] = useState('')
    const [image,setImage] = useState([]);
@@ -32,40 +44,18 @@ const Draft = () => {
    const modeChange = (e)=>{
     setMode(e.target.value)
    }
-   /*  async function createNewPost(ev) {
-    ev.preventDefault();
-    const data = new FormData();
-    data.set('title', title);
-    data.set('summary', summary);
-    data.set('content', content);
-    data.set('file', files[0]);
-    const response = await fetch('http://localhost:4000/post', {
-      method: 'POST',
-      body: data,
-      credentials: 'include',
-    });
-    if (response.ok) {
-      setRedirect(true);
-    }
-  }
-
-  if (redirect) {
-    return <Navigate to={'/'} />
-  } */
    const upload = ()=>{
     const data = new FormData();
     data.set('title',title);
     data.set('content',content)
+    if(checkImageFormat(image) === 'base64')
+    data.set('file',image)
         fetch('/api/blog/create', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
             body: data
           })
             .then(response => response.json())
-            .then(data =>{ 
-                console.log(data)
+            .then(data =>{
                 window.location.replace(`/blog/${data.id}`);
             })
             .catch(error => console.error(error));
