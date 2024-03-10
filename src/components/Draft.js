@@ -26,26 +26,42 @@ const  modules  = {
 };
 const Draft = () => {
    const [title,setTitle] = useState('')
-   const [imgUrl,setImgUrl] = useState('')
+   const [image,setImage] = useState([]);
    const [content,setContent] = useState('') 
    const [mode,setMode] = useState('edit')
    const modeChange = (e)=>{
     setMode(e.target.value)
    }
-   
-   const upload = ()=>{
-    const payload = {
-        title:title,
-        imgUrl:imgUrl,
-        content:content
+   /*  async function createNewPost(ev) {
+    ev.preventDefault();
+    const data = new FormData();
+    data.set('title', title);
+    data.set('summary', summary);
+    data.set('content', content);
+    data.set('file', files[0]);
+    const response = await fetch('http://localhost:4000/post', {
+      method: 'POST',
+      body: data,
+      credentials: 'include',
+    });
+    if (response.ok) {
+      setRedirect(true);
     }
-    
+  }
+
+  if (redirect) {
+    return <Navigate to={'/'} />
+  } */
+   const upload = ()=>{
+    const data = new FormData();
+    data.set('title',title);
+    data.set('content',content)
         fetch('/api/blog/create', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(payload)
+            body: data
           })
             .then(response => response.json())
             .then(data =>{ 
@@ -53,8 +69,6 @@ const Draft = () => {
                 window.location.replace(`/blog/${data.id}`);
             })
             .catch(error => console.error(error));
-    
-    console.log(payload);
    }
   return (
     <div>
@@ -62,7 +76,7 @@ const Draft = () => {
        <TextField value={title} onChange={(e)=>setTitle(e.target.value)} id="outlined" label="Title" variant="outlined" />
        <Button variant="contained" onClick={upload} className='py-2 w-48 '>UPLOAD</Button>
        </div>
-       <ImageUpload maxNumber={1} hitUrl={'Google.com'} preSetImages={[]}/>       
+       <ImageUpload image={image} setImage={setImage}/>      
        <div className='m-5'>
         <label className=''>Content</label>
         <Tooltip title="Use the provided features to format your text">
