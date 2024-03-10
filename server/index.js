@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname,"..","client","build")));
 app.use('/api',api) /*All the Routes are declared */
 /*Statically Hosting the frontend */
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname,"..","client","build"));
+  res.sendFile(path.join(__dirname,"..","client","build","index.html"));
 });
 app.listen(port,()=>{
     console.log("Server up and running " + port);
