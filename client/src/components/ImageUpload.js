@@ -14,7 +14,7 @@ function ImageUploader({ image, setImage }) {
   };
   React.useEffect(() => {
     if(image.length==0)
-    setImage("https://raw.githubusercontent.com/ManishMadan2882/blog-app/main/src/assets/defaultimg.png")
+    setImage("https://res.cloudinary.com/dy4n5em1q/image/upload/v1711747225/defaultimg_grgr0j.png")
   }, [image])
   return (
     <div className='px-6 '>
